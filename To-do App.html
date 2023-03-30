@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="To-do App.css">
+</head>
+<body>
+    <div class="container">
+        <div class="addTask">
+            <input type="text" placeholder="Add a task">
+            <button>Add</button>
+        </div>
+        <ol class="notCompleted">
+            <h2>PENDING</h2>
+        </ol>
+        <ol class="Complted">
+            <h2>COMPLETED</h2>
+        </ol>
+    </div>
+    <script>
+        const input = document.querySelector('input');
+        const btn = document.querySelector('.addTask > button');
+
+        btn.addEventListener('click',addList);
+        input.addEventListener('keyup',(e)=> {(e.keyCode==13? addList(e) : null);
+        })
+
+        function addList(e){
+            const notCompleted = document.querySelector('.notCompleted');
+            const Complted = document.querySelector('.Complted');
+
+            const newLi=document.createElement('li');
+            const checkBtn=document.createElement('button');
+            const delBtn=document.createElement('button');
+
+            checkBtn.innerHTML='<i class="fa fa-check"></i>';
+            delBtn.innerHTML = '<i class="fa fa-trash"></i>';
+
+            if(input.value !==' '){
+                newLi.textContent = input.value;
+                input.value='';
+                notCompleted.appendChild(newLi);
+                newLi.appendChild(checkBtn);
+                newLi.appendChild(delBtn);
+            }
+            checkBtn.addEventListener('click',function(){
+                const parent=this.parentNode;
+                Complted.appendChild(parent);
+                checkBtn.style.display='none';
+            });
+
+            delBtn.addEventListener('click',function(){
+                const parent=this.parentNode;
+                parent.remove();
+            });
+        }
+    </script>
+</body>
+</html>
